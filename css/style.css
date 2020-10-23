@@ -4,4 +4,29 @@
 
 .header {
     background: #FA8C16;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+.header-wrapper {
+    max-width: 1200px;
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.header-nav {
+    margin-left: 60px;
+    margin-right: auto;
+}
+.header-menu {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.header-menu-link {
+    text-decoration: none;
+    color: #fafafa;
+    margin-right: 15px;
 }
