@@ -109,6 +109,7 @@ body {
 .tag {
     color: #bfbfbf;
     margin-left: 10px;
+    text-decoration: none;
 }
 
 .post-footer {
