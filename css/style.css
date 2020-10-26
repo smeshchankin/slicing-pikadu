@@ -85,9 +85,12 @@ body {
     max-width: 800px;
 }
 .post {
-    padding: 35px 35px 0 35px;
     background-color: #fff;
     border: 1px solid #e8e8e8;
+    margin-bottom: 30px;
+}
+.post-body {
+    padding: 35px 35px 0 35px;
 }
 .post-title {
     margin-top: 0;
@@ -114,7 +117,7 @@ body {
 
     padding: 13px 35px;
 
-    border: 1px solid #e8e8e8;
+    border-top: 1px solid #e8e8e8;
     background-color: #fafafa;
 }
 .post-buttons {
@@ -135,6 +138,9 @@ body {
     fill: #8c8c8c;
     width: 24px;
     height: 24px;
+}
+.button-counter {
+    margin-left: 6px;
 }
 .post-author {
     display: flex;
