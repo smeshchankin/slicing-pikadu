@@ -76,13 +76,16 @@ body {
 }
 
 .content {
-    max-width: 1200px;
+    width: 1200px;
     width: 90%;
     margin: auto;
     margin-top: 30px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
 }
 .posts {
-    max-width: 800px;
+    width: 65%;
 }
 .post {
     background-color: #fff;
@@ -168,4 +171,28 @@ body {
 
     margin-left: 9px;
     border-radius: 4px;
+}
+
+.sidebar {
+    width: 32%;
+}
+.user {
+    padding: 15px 25px;
+    background-color: #FAFAFA;
+    border: 1px solid #E8E8E8;
+}
+.user-info {
+    display: flex;
+    align-items: center;
+}
+.user-avatar {
+    border-radius: 50%;
+    margin-right: 17px;
+}
+.user-name {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+
+    color: #595959;
 }
