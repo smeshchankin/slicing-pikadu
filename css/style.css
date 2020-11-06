@@ -132,6 +132,7 @@ body {
     background-color: transparent;
     border: none;
     color: #8c8c8c;
+    cursor: pointer;
 
     margin-right: 19px;
 }
