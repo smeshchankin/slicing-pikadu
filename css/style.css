@@ -282,7 +282,7 @@ body {
     color: #595959;
 }
 .card-body {
-    padding: 22px 40px 30px 25px;
+    padding: 22px 40px 20px 25px;
 }
 .card-body-title {
     margin: 0 0 10px;
@@ -295,4 +295,5 @@ body {
 }
 .card-text {
     color: #262626;
+    margin: 10px 0;
 }
