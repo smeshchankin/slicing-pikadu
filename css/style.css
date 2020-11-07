@@ -188,6 +188,7 @@ body {
 .user-info {
     display: flex;
     align-items: center;
+    text-decoration: none;
 }
 .user-avatar {
     border-radius: 50%;
