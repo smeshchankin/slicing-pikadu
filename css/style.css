@@ -114,7 +114,7 @@ body {
     margin-top: 0;
     margin-bottom: 19px;
 
-    font-weight: 600;
+    font-family: "SFProDisplay-Semibold", sans-serif;
     font-size: 16px;
     line-height: 24px;
 }
@@ -210,7 +210,7 @@ body {
     margin-right: 17px;
 }
 .user-name {
-    font-weight: 600;
+    font-family: "SFProDisplay-Semibold", sans-serif;
     font-size: 16px;
     line-height: 24px;
 
@@ -291,7 +291,7 @@ body {
 .card-title {
     margin: 0;
 
-    font-weight: 600;
+    font-family: "SFProDisplay-Semibold", sans-serif;
     font-size: 16px;
     line-height: 24px;
     color: #595959;
@@ -302,7 +302,7 @@ body {
 .card-body-title {
     margin: 0 0 10px;
 
-    font-weight: 600;
+    font-family: "SFProDisplay-Semibold", sans-serif;
     font-size: 16px;
     line-height: 24px;
     color: #D48806;
