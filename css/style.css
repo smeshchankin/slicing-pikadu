@@ -334,3 +334,12 @@ body {
     text-align: center;
     color: #ffffff;
 }
+
+@media (max-width: 990px) {
+    .sidebar {
+        display: none;
+    }
+    .posts {
+        width: 100%;
+    }
+}
