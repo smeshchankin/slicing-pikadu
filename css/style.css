@@ -354,6 +354,18 @@ body {
     }
     .sidebar {
         display: none;
+        position: fixed;
+        top: 64px;
+        right: 0;
+        bottom: 0;
+        height: 100%;
+        width: 320px;
+        background-color: #fff;
+        box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15);
+        padding: 30px;
+    }
+    .sidebar.visible {
+        display: block;
     }
     .posts {
         width: 100%;
