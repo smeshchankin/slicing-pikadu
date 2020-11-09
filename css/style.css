@@ -353,7 +353,6 @@ body {
         background-color: #fff;
     }
     .sidebar {
-        display: none;
         position: fixed;
         top: 64px;
         right: 0;
@@ -363,9 +362,13 @@ body {
         background-color: #fff;
         box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.15);
         padding: 30px;
+        transform: translateX(100%);
+        transition: transform 0.2s;
+        overflow-y: auto;
     }
     .sidebar.visible {
         display: block;
+        transform: translateX(0);
     }
     .posts {
         width: 100%;
