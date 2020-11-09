@@ -359,6 +359,9 @@ body {
         right: 0;
         width: 100%;
     }
+    .content {
+        margin-top: 94px;
+    }
     .sidebar {
         position: fixed;
         top: 64px;
