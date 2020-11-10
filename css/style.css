@@ -55,7 +55,6 @@ body {
 }
 
 .input-group {
-    width: 230px;
     height: 32px;
     position: relative;
     background-color: #fff;
@@ -398,4 +397,17 @@ body {
     .posts {
         width: 100%;
     }
-}
+    .post-footer {
+        flex-direction: column;
+    }
+    .post-author {
+        margin-top: 15px;
+    }
+    .author-about {
+        order: 2;
+        text-align: left;
+    }
+    .author-avatar {
+        margin-left: 0;
+        margin-right: 10px; 
+    }
