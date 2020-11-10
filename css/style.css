@@ -359,6 +359,21 @@ body {
         right: 0;
         width: 100%;
     }
+    .header-nav {
+        margin-left: 0;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #fa8c16;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.15);
+    }
+    .header-menu {
+        width: 90%;
+        margin: auto;
+    }
     .content {
         margin-top: 94px;
     }
