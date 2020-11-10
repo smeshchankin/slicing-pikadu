@@ -55,6 +55,8 @@ body {
 }
 
 .input-group {
+    max-width: 230px;
+    width: 60%;
     height: 32px;
     position: relative;
     background-color: #fff;
