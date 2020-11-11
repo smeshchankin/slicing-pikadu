@@ -377,6 +377,7 @@ body {
     }
     .content {
         margin-top: 94px;
+        margin-bottom: 60px;
     }
     .sidebar {
         position: fixed;
