@@ -443,6 +443,20 @@ body {
     }
 }
 
+@media (max-width: 632px) {
+    .add-buttons {
+        display: flex;
+        flex-direction: column;
+    }
+    .add-button {
+        max-width: 100%;
+    }
+    .button-outline {
+        margin-right: 0;
+        margin-top: 10px;
+    }
+}
+
 @media (max-width: 576px) {
     .post-footer {
         flex-direction: column;
