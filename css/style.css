@@ -196,7 +196,7 @@ body {
     width: 32%;
 }
 .user {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: space-between;
 
@@ -230,6 +230,7 @@ body {
 }
 
 .sidebar-nav {
+    display: none;
     background-color: #fff;
 }
 .sidebar-menu {
@@ -269,7 +270,7 @@ body {
     padding: 13px;
 }
 .button-publish-post {
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
     width: 100%;
