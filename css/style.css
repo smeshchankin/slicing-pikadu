@@ -195,7 +195,7 @@ body {
 .sidebar {
     width: 32%;
 }
-.user {
+.user, .login {
     display: none;
     align-items: center;
     justify-content: space-between;
@@ -203,6 +203,53 @@ body {
     padding: 15px 25px;
     background-color: #FAFAFA;
     border: 1px solid #E8E8E8;
+}
+.login {
+    display: block;
+}
+.login-form {
+    display: flex;
+    flex-direction: column;
+}
+.login-title {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #595959;
+}
+.login-input {
+    display: block;
+    background-color: #fff;
+    border: 1px solid #E8E8E8;
+    padding: 5px 15px;
+    margin-bottom: 15px;
+}
+.login-forget {
+    text-align: center;
+    font-size: 12px;
+    text-decoration: none;
+    color: #757575;
+    margin-bottom: 10px;
+    font-style: italic;
+}
+.login-signin {
+    text-transform: uppercase;
+}
+.login-signin:hover {
+    filter: opacity(80%);
+}
+.login-signin:active {
+    filter: brightness(85%);
+}
+.login-signup {
+    color: #fa8c16;
+    text-align: center;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-decoration: none;
+    line-height: 18px;
+    margin-bottom: 10px;
 }
 .user-info {
     display: flex;
@@ -261,7 +308,7 @@ body {
     font-size: 16px;
     line-height: 24px;
     color: #ffffff;
-    background: #FAAD14;
+    background-color: #FAAD14;
     border-radius: 4px;
     border: none;
     text-decoration: none;
