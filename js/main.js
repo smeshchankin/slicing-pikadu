@@ -1,9 +1,13 @@
 (function() {
-    let menuToggle = document.querySelector('#menuToggle');
-    let menu = document.querySelector('.sidebar');
+    const elems = {
+        menu: {
+            layout: document.querySelector('.sidebar'),
+            button: document.querySelector('#menuToggle')
+        }
+    };
 
-    menuToggle.addEventListener('click', function(event) {
+    elems.menu.button.addEventListener('click', function(event) {
         event.preventDefault();
-        menu.classList.toggle('visible');
+        elems.menu.layout.classList.toggle('visible');
     });
 }());
