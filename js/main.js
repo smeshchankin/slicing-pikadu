@@ -3,6 +3,15 @@
         menu: {
             layout: '.sidebar',
             button: '#menuToggle'
+        },
+        login: {
+            layout: '.login',
+            form: '.login-form',
+            email: '.login-email',
+            password: '.login-password',
+            button: {
+                signup: '.login-signup'
+            }
         }
     });
     console.log(elems);
