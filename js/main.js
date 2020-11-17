@@ -19,22 +19,56 @@
         users: [
             {
                 id: '01',
-                login: 'john',
+                email: 'john@gmail.com',
                 password: 'whois',
                 displayName: 'John Galt'
             },
             {
                 id: '02',
-                login: 'jack',
+                email: 'jack@gmail.com',
                 password: '1876-1916',
                 displayName: 'Jack London'
             }
         ]
     };
 
+    const setUsers = {
+        user: null,
+        login(email, password) {
+        },
+        logout() {
+        },
+        signup(email, password) {
+            if (this.getUser(email)) {
+                alert('User with email ' + email + ' already exists');
+            } else {
+                data.users.push({ email, password, displayName: email });
+            }
+        },
+        getUser(email) {
+            return data.users.find(u => u.email === email);
+        }
+    };
+
     elems.menu.button.addEventListener('click', function(event) {
         event.preventDefault();
         elems.menu.layout.classList.toggle('visible');
+    });
+
+    elems.login.form.addEventListener('click', event => {
+        event.preventDefault();
+
+        const email = elems.login.email.value;
+        const pass = elems.login.password.value;
+        setUsers.login(email, pass);
+    });
+
+    elems.login.button.signup.addEventListener('click', event => {
+        event.preventDefault();
+
+        const email = elems.login.email.value;
+        const pass = elems.login.password.value;
+        setUsers.signup(email, pass);
     });
 
     function applySelector(obj) {
