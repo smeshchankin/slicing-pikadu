@@ -12,8 +12,13 @@
             button: {
                 signup: '.login-signup'
             }
+        },
+        user: {
+            layout: '.user',
+            name: '.user-name'
         }
     });
+    console.log(elems);
 
     const data = {
         users: [
@@ -34,19 +39,32 @@
 
     const setUsers = {
         user: null,
-        login(email, password) {
+        login(email, password, handler) {
+            const user = this.getUser(email);
+            if (user && user.password === password) {
+                this.authorizedUser(user);
+                handler();
+            } else {
+                alert('User / password are incorrect');
+            }
         },
         logout() {
         },
-        signup(email, password) {
+        signup(email, password, handler) {
             if (this.getUser(email)) {
                 alert('User with email ' + email + ' already exists');
             } else {
-                data.users.push({ email, password, displayName: email });
+                const user = { email, password, displayName: email };
+                data.users.push(user);
+                this.authorizedUser(user);
+                handler();
             }
         },
         getUser(email) {
             return data.users.find(u => u.email === email);
+        },
+        authorizedUser(user) {
+            this.user = user;
         }
     };
 
@@ -55,12 +73,12 @@
         elems.menu.layout.classList.toggle('visible');
     });
 
-    elems.login.form.addEventListener('click', event => {
+    elems.login.form.addEventListener('submit', event => {
         event.preventDefault();
 
         const email = elems.login.email.value;
         const pass = elems.login.password.value;
-        setUsers.login(email, pass);
+        setUsers.login(email, pass, toggleAuth);
     });
 
     elems.login.button.signup.addEventListener('click', event => {
@@ -68,7 +86,7 @@
 
         const email = elems.login.email.value;
         const pass = elems.login.password.value;
-        setUsers.signup(email, pass);
+        setUsers.signup(email, pass, toggleAuth);
     });
 
     function applySelector(obj) {
@@ -79,5 +97,17 @@
                 ? applySelector(val) : document.querySelector(val);
         });
         return res;
+    }
+
+    function toggleAuth() {
+        const user = setUsers.user;
+        if (user) {
+            elems.login.layout.style.display = 'none';
+            elems.user.layout.style.display = 'flex';
+            elems.user.name.textContent = user.displayName;
+        } else {
+            elems.login.layout.style.display = 'flex';
+            elems.user.layout.style.display = 'none';
+        }
     }
 }());
