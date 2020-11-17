@@ -14,7 +14,23 @@
             }
         }
     });
-    console.log(elems);
+
+    const data = {
+        users: [
+            {
+                id: '01',
+                login: 'john',
+                password: 'whois',
+                displayName: 'John Galt'
+            },
+            {
+                id: '02',
+                login: 'jack',
+                password: '1876-1916',
+                displayName: 'Jack London'
+            }
+        ]
+    };
 
     elems.menu.button.addEventListener('click', function(event) {
         event.preventDefault();
