@@ -18,7 +18,6 @@
             name: '.user-name'
         }
     });
-    console.log(elems);
 
     const data = {
         users: [
@@ -54,7 +53,7 @@
             if (this.getUser(email)) {
                 alert('User with email ' + email + ' already exists');
             } else {
-                const user = { email, password, displayName: email };
+                const user = { email, password, displayName: this.extractNameFromEmail(email) };
                 data.users.push(user);
                 this.authorizedUser(user);
                 handler();
@@ -65,6 +64,9 @@
         },
         authorizedUser(user) {
             this.user = user;
+        },
+        extractNameFromEmail(email) {
+            return email && email.split('@')[0];
         }
     };
 
