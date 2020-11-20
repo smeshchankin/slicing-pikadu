@@ -49,20 +49,19 @@
         },
         logout() {
         },
-        signup(email, password, handler) {
-            if (email == null || email.trim() === '') {
-                alert('Please input email address');
-                return;
-            }
-            if (password == null || password === '') {
-                alert('Please input password');
+        signup(emailElem, passwordElem, handler) {
+            if (!emailElem.reportValidity() || !passwordElem.reportValidity()) {
                 return;
             }
 
-            if (this.getUser(email)) {
-                alert('User with email ' + email + ' already exists');
+            if (this.getUser(emailElem.value)) {
+                alert('User with email ' + emailElem.value + ' already exists');
             } else {
-                const user = { email, password, displayName: this.extractNameFromEmail(email) };
+                const user = {
+                    email: emailElem.value,
+                    password: passwordElem.value,
+                    displayName: this.extractNameFromEmail(emailElem.value)
+                };
                 data.users.push(user);
                 this.authorizedUser(user);
                 handler();
@@ -95,9 +94,9 @@
     elems.login.button.signup.addEventListener('click', event => {
         event.preventDefault();
 
-        const email = elems.login.email.value;
-        const pass = elems.login.password.value;
-        setUsers.signup(email, pass, toggleAuth);
+        const emailElem = elems.login.email;
+        const passElem = elems.login.password;
+        setUsers.signup(emailElem, passElem, toggleAuth);
     });
 
     function applySelector(obj) {
