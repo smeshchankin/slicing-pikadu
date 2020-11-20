@@ -50,6 +50,15 @@
         logout() {
         },
         signup(email, password, handler) {
+            if (email == null || email.trim() === '') {
+                alert('Please input email address');
+                return;
+            }
+            if (password == null || password === '') {
+                alert('Please input password');
+                return;
+            }
+
             if (this.getUser(email)) {
                 alert('User with email ' + email + ' already exists');
             } else {
