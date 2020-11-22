@@ -89,6 +89,7 @@
         const email = elems.login.email.value;
         const pass = elems.login.password.value;
         setUsers.login(email, pass, toggleAuth);
+        elems.login.form.reset();
     });
 
     elems.login.button.signup.addEventListener('click', event => {
@@ -97,6 +98,7 @@
         const emailElem = elems.login.email;
         const passElem = elems.login.password;
         setUsers.signup(emailElem, passElem, toggleAuth);
+        elems.login.form.reset();
     });
 
     function applySelector(obj) {
