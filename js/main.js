@@ -10,7 +10,8 @@
             email: '.login-email',
             password: '.login-password',
             button: {
-                signup: '.login-signup'
+                signup: '.login-signup',
+                logout: '.exit-button'
             }
         },
         user: {
@@ -48,6 +49,7 @@
             }
         },
         logout() {
+            this.authorizedUser(null);
         },
         signup(emailElem, passwordElem, handler) {
             if (!emailElem.reportValidity() || !passwordElem.reportValidity()) {
@@ -99,6 +101,12 @@
         const passElem = elems.login.password;
         setUsers.signup(emailElem, passElem, toggleAuth);
         elems.login.form.reset();
+    });
+
+    elems.login.button.logout.addEventListener('click', event => {
+        event.preventDefault();
+
+        setUsers.logout();
     });
 
     function applySelector(obj) {
