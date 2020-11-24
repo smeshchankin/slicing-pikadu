@@ -37,9 +37,15 @@
         ]
     };
 
+    const regExpEmailValidate = /^\w+@\w+\.\w{2,}$/;
+
     const setUsers = {
         user: null,
         login(email, password, handler) {
+            if (!regExpEmailValidate.test(email)) {
+                alert('Invalid email');
+                return;
+            }
             const user = this.getUser(email);
             if (user && user.password === password) {
                 this.authorizedUser(user);
@@ -53,6 +59,10 @@
         },
         signup(emailElem, passwordElem, handler) {
             if (!emailElem.reportValidity() || !passwordElem.reportValidity()) {
+                return;
+            }
+            if (!regExpEmailValidate.test(email)) {
+                alert('Invalid email');
                 return;
             }
 
