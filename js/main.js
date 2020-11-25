@@ -54,14 +54,15 @@
                 alert('User / password are incorrect');
             }
         },
-        logout() {
+        logout(handler) {
             this.authorizedUser(null);
+            handler();
         },
         signup(emailElem, passwordElem, handler) {
             if (!emailElem.reportValidity() || !passwordElem.reportValidity()) {
                 return;
             }
-            if (!regExpEmailValidate.test(email)) {
+            if (!regExpEmailValidate.test(emailElem.value)) {
                 alert('Invalid email');
                 return;
             }
@@ -116,7 +117,7 @@
     elems.login.button.logout.addEventListener('click', event => {
         event.preventDefault();
 
-        setUsers.logout();
+        setUsers.logout(toggleAuth);
     });
 
     function applySelector(obj) {
@@ -136,7 +137,7 @@
             elems.user.layout.style.display = 'flex';
             elems.user.name.textContent = user.displayName;
         } else {
-            elems.login.layout.style.display = 'flex';
+            elems.login.layout.style.display = 'block';
             elems.user.layout.style.display = 'none';
         }
     }
