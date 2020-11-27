@@ -268,11 +268,12 @@ body {
 
     color: #595959;
 }
-.icon-exit {
+.icon-edit, .icon-exit {
     width: 24px;
     height: 24px;
+}
+.icon-exit {
     fill: #000;
-
     display: flex;
     align-self: center;
 }
