@@ -255,6 +255,7 @@ body {
 .user-info {
     display: flex;
     align-items: center;
+    margin-right: auto;
     text-decoration: none;
 }
 .user-avatar {
@@ -268,13 +269,16 @@ body {
 
     color: #595959;
 }
+.edit-button {
+    margin-right: 12px;
+}
 .icon-edit, .icon-exit {
     width: 24px;
     height: 24px;
+    display: flex;
 }
 .icon-exit {
     fill: #000;
-    display: flex;
     align-self: center;
 }
 
