@@ -134,7 +134,7 @@
         const user = setUsers.user;
         if (user) {
             elems.login.layout.style.display = 'none';
-            elems.user.layout.style.display = 'flex';
+            elems.user.layout.style.display = 'block';
             elems.user.name.textContent = user.displayName;
         } else {
             elems.login.layout.style.display = 'block';
