@@ -274,8 +274,20 @@ body {
 
     color: #595959;
 }
+
+.edit-label {
+    display: block;
+    margin-bottom: 10px;
+    text-align: center;
+}
+.edit-input {
+    display: block;
+    width: 100%;
+    padding: 5px 10px;
+}
 .edit-button {
-    margin-right: 12px;
+    /* margin-right: 12px; */
+    width: 100%;
 }
 .icon-edit, .icon-exit {
     width: 24px;
