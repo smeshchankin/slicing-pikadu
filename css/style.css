@@ -275,6 +275,13 @@ body {
     color: #595959;
 }
 
+.edit-container {
+    display: none;
+}
+.edit-container.visible {
+    display: block;
+}
+
 .edit-label {
     display: block;
     margin-bottom: 10px;
@@ -286,8 +293,7 @@ body {
     padding: 5px 10px;
 }
 .edit-button {
-    /* margin-right: 12px; */
-    width: 100%;
+    margin-right: 12px;
 }
 .icon-edit, .icon-exit {
     width: 24px;
