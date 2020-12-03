@@ -248,7 +248,7 @@ body {
 .login-signin:active {
     filter: brightness(85%);
 }
-.login-signup {
+.login-signup, .edit-btn {
     color: #fa8c16;
     text-align: center;
     font-size: 14px;
