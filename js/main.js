@@ -14,6 +14,10 @@
                 logout: '.exit-button'
             }
         },
+        edit: {
+            layout: '.edit-container',
+            button: '.edit-button'
+        },
         user: {
             layout: '.user',
             name: '.user-name'
@@ -118,6 +122,11 @@
         event.preventDefault();
 
         setUsers.logout(toggleAuth);
+    });
+
+    elems.edit.button.addEventListener('click', event => {
+        event.preventDefault();
+        elems.edit.layout.classList.toggle('visible');
     });
 
     function applySelector(obj) {
