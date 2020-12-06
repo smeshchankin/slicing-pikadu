@@ -16,7 +16,9 @@
         },
         edit: {
             layout: '.edit-container',
-            button: '.edit-button'
+            button: '.edit-button',
+            username: '.edit-username',
+            photo: '.edit-photo'
         },
         user: {
             layout: '.user',
@@ -84,6 +86,15 @@
                 handler();
             }
         },
+        edit(userName, userPhoto, handler) {
+            if (userName) {
+                this.user.displayName = userName;
+            }
+            if (userPhoto) {
+                this.user.photo = userPhoto;
+            }
+            handler();
+        },
         getUser(email) {
             return data.users.find(u => u.email === email);
         },
@@ -127,6 +138,14 @@
     elems.edit.button.addEventListener('click', event => {
         event.preventDefault();
         elems.edit.layout.classList.toggle('visible');
+    });
+
+    elems.edit.layout.addEventListener('submit', event => {
+        event.preventDefault();
+
+        const user = elems.edit.username.value;
+        const photo = elems.edit.photo.value;
+        setUsers.edit(user, photo, toggleAuth);
     });
 
     function applySelector(obj) {
