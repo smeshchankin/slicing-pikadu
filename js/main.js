@@ -22,7 +22,8 @@
         },
         user: {
             layout: '.user',
-            name: '.user-name'
+            name: '.user-name',
+            avatar: '.user-avatar'
         }
     });
 
@@ -164,6 +165,7 @@
             elems.login.layout.style.display = 'none';
             elems.user.layout.style.display = 'block';
             elems.user.name.textContent = user.displayName;
+            elems.user.avatar.src = user.photo || elems.user.avatar.src;
         } else {
             elems.login.layout.style.display = 'block';
             elems.user.layout.style.display = 'none';
