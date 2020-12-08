@@ -139,6 +139,8 @@
     elems.edit.button.addEventListener('click', event => {
         event.preventDefault();
         elems.edit.layout.classList.toggle('visible');
+        elems.edit.username.value = setUsers.user.displayName;
+        elems.edit.photo.value = setUsers.user.photo || '';
     });
 
     elems.edit.layout.addEventListener('submit', event => {
@@ -147,6 +149,7 @@
         const user = elems.edit.username.value;
         const photo = elems.edit.photo.value;
         setUsers.edit(user, photo, toggleAuth);
+        elems.edit.layout.classList.remove('visible');
     });
 
     function applySelector(obj) {
