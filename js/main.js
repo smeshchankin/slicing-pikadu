@@ -24,7 +24,8 @@
             layout: '.user',
             name: '.user-name',
             avatar: '.user-avatar'
-        }
+        },
+        posts: '.posts'
     });
 
     const data = {
@@ -107,50 +108,59 @@
         }
     };
 
-    elems.menu.button.addEventListener('click', function(event) {
-        event.preventDefault();
-        elems.menu.layout.classList.toggle('visible');
-    });
+    const showAllPosts = () => {
+        elems.posts.innerHTML = 'Post number 1';
+    };
 
-    elems.login.form.addEventListener('submit', event => {
-        event.preventDefault();
-
-        const email = elems.login.email.value;
-        const pass = elems.login.password.value;
-        setUsers.login(email, pass, toggleAuth);
-        elems.login.form.reset();
-    });
-
-    elems.login.button.signup.addEventListener('click', event => {
-        event.preventDefault();
-
-        const emailElem = elems.login.email;
-        const passElem = elems.login.password;
-        setUsers.signup(emailElem, passElem, toggleAuth);
-        elems.login.form.reset();
-    });
-
-    elems.login.button.logout.addEventListener('click', event => {
-        event.preventDefault();
-
-        setUsers.logout(toggleAuth);
-    });
-
-    elems.edit.button.addEventListener('click', event => {
-        event.preventDefault();
-        elems.edit.layout.classList.toggle('visible');
-        elems.edit.username.value = setUsers.user.displayName;
-        elems.edit.photo.value = setUsers.user.photo || '';
-    });
-
-    elems.edit.layout.addEventListener('submit', event => {
-        event.preventDefault();
-
-        const user = elems.edit.username.value;
-        const photo = elems.edit.photo.value;
-        setUsers.edit(user, photo, toggleAuth);
-        elems.edit.layout.classList.remove('visible');
-    });
+    const init = () => {
+        elems.menu.button.addEventListener('click', function(event) {
+            event.preventDefault();
+            elems.menu.layout.classList.toggle('visible');
+        });
+    
+        elems.login.form.addEventListener('submit', event => {
+            event.preventDefault();
+    
+            const email = elems.login.email.value;
+            const pass = elems.login.password.value;
+            setUsers.login(email, pass, toggleAuth);
+            elems.login.form.reset();
+        });
+    
+        elems.login.button.signup.addEventListener('click', event => {
+            event.preventDefault();
+    
+            const emailElem = elems.login.email;
+            const passElem = elems.login.password;
+            setUsers.signup(emailElem, passElem, toggleAuth);
+            elems.login.form.reset();
+        });
+    
+        elems.login.button.logout.addEventListener('click', event => {
+            event.preventDefault();
+    
+            setUsers.logout(toggleAuth);
+        });
+    
+        elems.edit.button.addEventListener('click', event => {
+            event.preventDefault();
+            elems.edit.layout.classList.toggle('visible');
+            elems.edit.username.value = setUsers.user.displayName;
+            elems.edit.photo.value = setUsers.user.photo || '';
+        });
+    
+        elems.edit.layout.addEventListener('submit', event => {
+            event.preventDefault();
+    
+            const user = elems.edit.username.value;
+            const photo = elems.edit.photo.value;
+            setUsers.edit(user, photo, toggleAuth);
+            elems.edit.layout.classList.remove('visible');
+        });
+    
+        showAllPosts();
+        toggleAuth();
+    };
 
     function applySelector(obj) {
         const res = {};
@@ -174,4 +184,6 @@
             elems.user.layout.style.display = 'none';
         }
     }
+
+    document.addEventListener('DOMContentLoaded', init);
 }());
