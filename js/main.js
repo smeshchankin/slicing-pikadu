@@ -138,7 +138,21 @@
                 ],
                 tags: ['latest', 'new', 'hot', 'my', 'fortuity'],
                 author: 'thispersondoesnotexist',
-                date: '5 min ago'
+                date: '5 min ago',
+                likes: 26,
+                commnets: 157
+            },
+            {
+                title: 'Post #2',
+                text: [
+                    'This is an example of a short text',
+                    'Also we have the second paragrahp'
+                ],
+                tags: ['hot', 'my'],
+                author: 'thispersondoesnotexist',
+                date: '30 min ago',
+                likes: 53,
+                commnets: 202
             }
         ]
     };
@@ -193,7 +207,7 @@
             elems.edit.layout.classList.remove('visible');
         });
     
-        showAllPosts();
+        //showAllPosts();
         toggleAuth();
     };
 
