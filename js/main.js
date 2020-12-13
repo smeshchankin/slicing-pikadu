@@ -140,7 +140,7 @@
                 author: 'thispersondoesnotexist',
                 date: '5 min ago',
                 likes: 26,
-                commnets: 157
+                comments: 157
             },
             {
                 title: 'Post #2',
@@ -152,13 +152,67 @@
                 author: 'thispersondoesnotexist',
                 date: '30 min ago',
                 likes: 53,
-                commnets: 202
+                comments: 202
             }
         ]
     };
 
     const showAllPosts = () => {
-        elems.posts.innerHTML = 'Post number 1';
+        let postsHTML = '';
+        setPosts.allPosts.forEach(post => {
+            postsHTML += `
+            <section class="post">
+                <div class="post-body">
+                    <h2 class="post-title">${post.title}</h2>`;
+            post.text.forEach(text => postsHTML += `<p class="post-text">
+                ${text}
+            </p>
+            `);
+            postsHTML += '<div class="tags">';
+            post.tags.forEach(tag => postsHTML += `
+                <a href="#" class="tag">#${tag}</a>
+            `);
+            postsHTML += `
+                </div>
+                <div class="post-footer">
+                    <div class="post-buttons">
+                        <button class="post-button likes">
+                            <svg class="icon icon-likes">
+                                <use xlink:href="img/icons.svg#like"></use>
+                            </svg>
+                            <span class="button-counter">${post.likes}</span>
+                        </button>
+                        <button class="post-button comments">
+                            <svg class="icon icon-comments">
+                                <use xlink:href="img/icons.svg#message"></use>
+                            </svg>
+                            <span class="button-counter">${post.comments}</span>
+                        </button>
+                        <button class="post-button save">
+                            <svg class="icon icon-save">
+                                <use xlink:href="img/icons.svg#save"></use>
+                            </svg>
+                        </button>
+                        <button class="post-button share">
+                            <svg class="icon icon-share">
+                                <use xlink:href="img/icons.svg#share"></use>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="post-author">
+                        <div class="author-about">
+                            <a href="http://thispersondoesnotexist.com" class="author-username">${post.author}</a>
+                            <span class="post-time">${post.date}</span>
+                        </div>
+                        <a href="#" class="author-link"><img src="img/avatar.jpg" alt="avatar" class="author-avatar"></a>
+                    </div>
+                </div>
+            </section>
+            `;
+        });
+
+        elems.posts.innerHTML = postsHTML;
     };
 
     const init = () => {
@@ -207,7 +261,7 @@
             elems.edit.layout.classList.remove('visible');
         });
     
-        //showAllPosts();
+        showAllPosts();
         toggleAuth();
     };
 
