@@ -160,16 +160,17 @@
     const showAllPosts = () => {
         let postsHTML = '';
         setPosts.allPosts.forEach(post => {
+            const { title, text, tags, likes, comments, author, date } = post;
             postsHTML += `
             <section class="post">
                 <div class="post-body">
-                    <h2 class="post-title">${post.title}</h2>`;
-            post.text.forEach(text => postsHTML += `<p class="post-text">
+                    <h2 class="post-title">${title}</h2>`;
+            text.forEach(text => postsHTML += `<p class="post-text">
                 ${text}
             </p>
             `);
             postsHTML += '<div class="tags">';
-            post.tags.forEach(tag => postsHTML += `
+            tags.forEach(tag => postsHTML += `
                 <a href="#" class="tag">#${tag}</a>
             `);
             postsHTML += `
@@ -180,13 +181,13 @@
                             <svg class="icon icon-likes">
                                 <use xlink:href="img/icons.svg#like"></use>
                             </svg>
-                            <span class="button-counter">${post.likes}</span>
+                            <span class="button-counter">${likes}</span>
                         </button>
                         <button class="post-button comments">
                             <svg class="icon icon-comments">
                                 <use xlink:href="img/icons.svg#message"></use>
                             </svg>
-                            <span class="button-counter">${post.comments}</span>
+                            <span class="button-counter">${comments}</span>
                         </button>
                         <button class="post-button save">
                             <svg class="icon icon-save">
@@ -202,8 +203,8 @@
 
                     <div class="post-author">
                         <div class="author-about">
-                            <a href="http://thispersondoesnotexist.com" class="author-username">${post.author}</a>
-                            <span class="post-time">${post.date}</span>
+                            <a href="http://thispersondoesnotexist.com" class="author-username">${author}</a>
+                            <span class="post-time">${date}</span>
                         </div>
                         <a href="#" class="author-link"><img src="img/avatar.jpg" alt="avatar" class="author-avatar"></a>
                     </div>
