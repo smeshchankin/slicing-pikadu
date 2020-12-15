@@ -164,16 +164,9 @@
             postsHTML += `
             <section class="post">
                 <div class="post-body">
-                    <h2 class="post-title">${title}</h2>`;
-            text.forEach(text => postsHTML += `<p class="post-text">
-                ${text}
-            </p>
-            `);
-            postsHTML += '<div class="tags">';
-            tags.forEach(tag => postsHTML += `
-                <a href="#" class="tag">#${tag}</a>
-            `);
-            postsHTML += `
+                    <h2 class="post-title">${title}</h2>
+                    ${text.map(p => `<p class="post-text">${p}</p>`).join('')}
+                    <div class="tags">${tags.map(tag => `<a href="#" class="tag">#${tag}</a>`).join('')}
                 </div>
                 <div class="post-footer">
                     <div class="post-buttons">
