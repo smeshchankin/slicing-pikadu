@@ -25,7 +25,10 @@
             name: '.user-name',
             avatar: '.user-avatar'
         },
-        posts: '.posts'
+        posts: '.posts',
+        button: {
+            newPost: '.button-publish-post'
+        }
     });
 
     const data = {
@@ -276,9 +279,11 @@
             elems.user.layout.style.display = 'block';
             elems.user.name.textContent = user.displayName;
             elems.user.avatar.src = user.photo || elems.user.avatar.src;
+            elems.button.newPost.classList.add('visible');
         } else {
             elems.login.layout.style.display = 'block';
             elems.user.layout.style.display = 'none';
+            elems.button.newPost.classList.remove('visible');
         }
     }
 

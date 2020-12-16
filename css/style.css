@@ -372,6 +372,9 @@ body {
 
     margin-top: 20px;
 }
+.button-publish-post.visible {
+    display: flex;
+}
 .button-outline {
     background-color: #fff;
     border: 1px solid #ffc53d;
