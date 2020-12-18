@@ -103,9 +103,13 @@ body {
     align-items: flex-start;
     justify-content: space-between;
 }
-.posts {
+.posts, .add-post {
+    display: none;
     width: 65%;
 }
+.posts.visible {
+    display: block;
+},
 .post {
     background-color: #fff;
     border: 1px solid #e8e8e8;
@@ -456,8 +460,11 @@ body {
 }
 
 .add-post {
-    display: flex;
+    display: none;
     flex-direction: column;
+}
+.add-post.visible {
+    display: flex;
 }
 .add-title, .add-text {
     background-color: #fff;
@@ -537,7 +544,7 @@ body {
         display: block;
         transform: translateX(0);
     }
-    .posts {
+    .posts, .add-post {
         width: 100%;
     }
 }
