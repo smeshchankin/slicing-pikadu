@@ -27,7 +27,8 @@
         },
         posts: '.posts',
         button: {
-            newPost: '.button-publish-post'
+            newPost: '.button-publish-post',
+            form: '.add-post'
         }
     });
 
@@ -284,6 +285,8 @@
             elems.login.layout.style.display = 'block';
             elems.user.layout.style.display = 'none';
             elems.button.newPost.classList.remove('visible');
+            elems.button.form.classList.remove('visible');
+            elems.posts.classList.add('visible');
         }
     }
 
