@@ -258,7 +258,12 @@
             setUsers.edit(user, photo, toggleAuth);
             elems.edit.layout.classList.remove('visible');
         });
-    
+
+        elems.button.newPost.addEventListener('click', event => {
+            event.preventDefault();
+            showAddPost();
+        });
+
         showAllPosts();
         toggleAuth();
     };
@@ -288,6 +293,11 @@
             elems.button.form.classList.remove('visible');
             elems.posts.classList.add('visible');
         }
+    }
+
+    function showAddPost() {
+        elems.button.form.classList.add('visible');
+            elems.posts.classList.remove('visible');
     }
 
     document.addEventListener('DOMContentLoaded', init);
