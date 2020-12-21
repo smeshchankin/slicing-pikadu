@@ -466,11 +466,12 @@ body {
 .add-post.visible {
     display: flex;
 }
-.add-title, .add-text {
+.add-title, .add-text, .add-tags {
     background-color: #fff;
     border: 1px solid #e8e8e8;
     padding: 23px 30px;
     margin-bottom: 16px;
+    resize: none;
 }
 .add-text {
     min-height: 300px;
