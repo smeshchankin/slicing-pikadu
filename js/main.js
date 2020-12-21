@@ -264,6 +264,25 @@
             showAddPost();
         });
 
+        elems.button.form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const { title, text, tags } = this.elements;
+            const post = {
+                title: title.value,
+                text: [text.value],
+                tags: tags.value.split(','),
+                author: setUsers.user.displayName,
+                date: 'now',
+                likes: 0,
+                comments: 0
+            };
+            setPosts.allPosts.push(post);
+            showAllPosts();
+
+            hideAddPost();
+        });
+
         showAllPosts();
         toggleAuth();
     };
@@ -281,6 +300,7 @@
     function toggleAuth() {
         const user = setUsers.user;
         if (user) {
+
             elems.login.layout.style.display = 'none';
             elems.user.layout.style.display = 'block';
             elems.user.name.textContent = user.displayName;
@@ -297,7 +317,12 @@
 
     function showAddPost() {
         elems.button.form.classList.add('visible');
-            elems.posts.classList.remove('visible');
+        elems.posts.classList.remove('visible');
+    }
+
+    function hideAddPost() {
+        elems.button.form.classList.remove('visible');
+        elems.posts.classList.add('visible');
     }
 
     document.addEventListener('DOMContentLoaded', init);
