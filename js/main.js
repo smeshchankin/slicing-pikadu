@@ -267,11 +267,19 @@
         elems.button.form.addEventListener('submit', function(event) {
             event.preventDefault();
 
-            const { title, text, tags } = this.elements;
+            let { title, text, tags } = this.elements;
+            title = title.value;
+            text = text.value;
+            tags = tags.value.split(',');
+
+            if (!validatePost(title, text)) {
+                return;
+            }
+
             const post = {
-                title: title.value,
-                text: [text.value],
-                tags: tags.value.split(','),
+                title,
+                text: text.split('\n'),
+                tags,
                 author: setUsers.user.displayName,
                 date: 'now',
                 likes: 0,
@@ -323,6 +331,23 @@
     function hideAddPost() {
         elems.button.form.classList.remove('visible');
         elems.posts.classList.add('visible');
+    }
+
+    function validatePost(title, text) {
+        let msg = '';
+        if (title.length <= 5) {
+            msg += 'Too short title\n';
+        }
+        if (text.length <= 5) {
+            msg += 'Too short text\n';
+        }
+
+        if (msg) {
+            alert(msg);
+            return false;
+        }
+
+        return true;
     }
 
     document.addEventListener('DOMContentLoaded', init);
