@@ -113,6 +113,19 @@
     };
 
     const setPosts = {
+        addPost: function(title, text, tags, handler) {
+            const post = {
+                title,
+                text,
+                tags,
+                author: setUsers.user.displayName,
+                date: 'now',
+                likes: 0,
+                comments: 0
+            };
+            setPosts.allPosts.push(post);
+            handler();
+        },
         allPosts: [
             {
                 title: 'Post\'s title',
@@ -270,24 +283,12 @@
             let { title, text, tags } = this.elements;
             title = title.value;
             text = text.value;
-            tags = tags.value.split(',');
 
             if (!validatePost(title, text)) {
                 return;
             }
 
-            const post = {
-                title,
-                text: text.split('\n'),
-                tags,
-                author: setUsers.user.displayName,
-                date: 'now',
-                likes: 0,
-                comments: 0
-            };
-            setPosts.allPosts.push(post);
-            showAllPosts();
-
+            setPosts.addPost(title, text.split('\n'), tags.value.split(','), showAllPosts);
             hideAddPost();
         });
 
