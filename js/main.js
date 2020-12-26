@@ -288,7 +288,8 @@
                 return;
             }
 
-            setPosts.addPost(title, text.split('\n'), tags.value.split(','), showAllPosts);
+            tags = tags.value.split(',').map(tag => tag.trim());
+            setPosts.addPost(title, text.split('\n'), tags, showAllPosts);
             hideAddPost();
         });
 
