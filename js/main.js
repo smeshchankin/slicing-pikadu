@@ -291,6 +291,7 @@
             tags = tags.value.split(',').map(tag => tag.trim());
             setPosts.addPost(title, text.split('\n'), tags, showAllPosts);
             hideAddPost();
+            this.reset();
         });
 
         showAllPosts();
