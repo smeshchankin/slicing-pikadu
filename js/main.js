@@ -119,7 +119,7 @@
                 text,
                 tags,
                 author: setUsers.user.displayName,
-                date: new Date().toLocaleDateString(),
+                date: new Date().toLocaleString(),
                 likes: 0,
                 comments: 0
             };
