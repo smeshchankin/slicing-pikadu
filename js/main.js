@@ -1,4 +1,14 @@
 (function() {
+    const firebaseConfig = {
+        apiKey: "AIzaSyDNrUZDJ1Ou73dO2OMOyPvFpjjTtKtg4R4",
+        authDomain: "pika-du.firebaseapp.com",
+        projectId: "pika-du",
+        storageBucket: "pika-du.appspot.com",
+        messagingSenderId: "977058256524",
+        appId: "1:977058256524:web:6a148d0ffb8c12ff964da9"
+    };
+    firebase.initializeApp(firebaseConfig);
+    
     const elems = applySelector({
         menu: {
             layout: '.sidebar',
