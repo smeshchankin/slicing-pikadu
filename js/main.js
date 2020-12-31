@@ -63,6 +63,14 @@
 
     const setUsers = {
         user: null,
+        initUser(handler) {
+            firebase.auth().onAuthStateChange(user => {
+                this.user = user ? user : null
+                if (handler) {
+                    handler();
+                }
+            });
+        },
         login(email, password, handler) {
             if (!regExpEmailValidate.test(email)) {
                 alert('Invalid email');
@@ -88,6 +96,19 @@
                 alert('Invalid email');
                 return;
             }
+
+            firebase.auth()
+                .createUserWithEmailAndPassword(emailElem.value, passwordElem.value)
+                .then(data => console.log(data))
+                .catch(err => {
+                    const { code, message } = err;
+                    if (code === 'auth/weak-password') {
+                        alert('Weak password');
+                    } else if (code === 'auth/email-already-in-use') {
+                        alert('User already exists');
+                    }
+                    console.log('Error: code =', code, ', messgae =', message);
+                });
 
             if (this.getUser(emailElem.value)) {
                 alert('User with email ' + emailElem.value + ' already exists');
@@ -304,8 +325,8 @@
             this.reset();
         });
 
+        setUsers.initUser(toggleAuth);
         showAllPosts();
-        toggleAuth();
     };
 
     function applySelector(obj) {
