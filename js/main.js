@@ -85,8 +85,16 @@
             }
         },
         logout(handler) {
-            this.authorizedUser(null);
-            handler();
+            firebase.auth()
+                .signOut()
+                .then(() => {
+                    this.authorizedUser(null);
+                    handler();
+                })
+                .catch(err => {
+                    const { code, message } = err;
+                    alert('Sign out error: code =', code, ', message =', message);
+                });
         },
         signup(emailElem, passwordElem, handler) {
             if (!emailElem.reportValidity() || !passwordElem.reportValidity()) {
@@ -107,7 +115,7 @@
                     } else if (code === 'auth/email-already-in-use') {
                         alert('User already exists');
                     }
-                    console.log('Error: code =', code, ', messgae =', message);
+                    console.log('Error: code =', code, ', message =', message);
                 });
 
             if (this.getUser(emailElem.value)) {
