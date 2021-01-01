@@ -76,6 +76,19 @@
                 alert('Invalid email');
                 return;
             }
+
+            firebase.auth()
+                .signInWithEmailAndPassword(email, password)
+                .catch(err => {
+                    const { code, message } = err;
+                    if (code === 'auth/wrong-password') {
+                        alert('Wrong password');
+                    } else if (code === 'auth/user-not-found') {
+                        alert('Wrong login');
+                    }
+                    console.log('Error: code =', code, ', message =', message);
+                });
+
             const user = this.getUser(email);
             if (user && user.password === password) {
                 this.authorizedUser(user);
