@@ -144,13 +144,21 @@
                 handler();
             }
         },
-        edit(userName, userPhoto, handler) {
-            if (userName) {
-                this.user.displayName = userName;
+        edit(displayName, photoURL, handler) {
+            const user = firebase.auth().currentUser;
+
+            if (displayName) {
+                this.user.displayName = displayName;
+
+                if (photoURL) {
+                    this.user.photo = photoURL;
+
+                    user.updateProfile({ displayName, photoURL });
+                } else {
+                    user.updateProfile({ displayName});
+                }
             }
-            if (userPhoto) {
-                this.user.photo = userPhoto;
-            }
+
             handler();
         },
         getUser(email) {
