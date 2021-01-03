@@ -120,7 +120,7 @@
 
             firebase.auth()
                 .createUserWithEmailAndPassword(emailElem.value, passwordElem.value)
-                .then(data => console.log(data))
+                .then(data => this.edit(email.substring(0, email.indexOf('@')), null, handler))
                 .catch(err => {
                     const { code, message } = err;
                     if (code === 'auth/weak-password') {
