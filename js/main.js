@@ -153,13 +153,13 @@
                 if (photoURL) {
                     this.user.photo = photoURL;
 
-                    user.updateProfile({ displayName, photoURL });
+                    user.updateProfile({ displayName, photoURL })
+                        .then(handler);
                 } else {
-                    user.updateProfile({ displayName});
+                    user.updateProfile({ displayName})
+                        .then(handler);
                 }
             }
-
-            handler();
         },
         getUser(email) {
             return data.users.find(u => u.email === email);
