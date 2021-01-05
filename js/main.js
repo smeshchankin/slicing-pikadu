@@ -64,7 +64,7 @@
     const setUsers = {
         user: null,
         initUser(handler) {
-            firebase.auth().onAuthStateChange(user => {
+            firebase.auth().onAuthStateChanged(user => {
                 this.user = user ? user : null
                 if (handler) {
                     handler();
