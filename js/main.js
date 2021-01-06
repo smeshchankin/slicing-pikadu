@@ -175,6 +175,7 @@
     const setPosts = {
         addPost: function(title, text, tags, handler) {
             const post = {
+                id: `postID${(+new Date()).toString(16)}-${user.uid}`,
                 title,
                 text,
                 tags,
