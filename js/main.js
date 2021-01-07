@@ -185,6 +185,9 @@
                 comments: 0
             };
             setPosts.allPosts.push(post);
+
+            firebase.database().ref('post').set(this.allPosts);
+
             handler();
         },
         allPosts: [
