@@ -60,6 +60,7 @@
     };
 
     const regExpEmailValidate = /^\w+@\w+\.\w{2,}$/;
+    const DEFAULT_PHOTO = elems.user.avatar.src;
 
     const setUsers = {
         user: null,
@@ -385,7 +386,7 @@
             elems.login.layout.style.display = 'none';
             elems.user.layout.style.display = 'block';
             elems.user.name.textContent = user.displayName;
-            elems.user.avatar.src = user.photo || elems.user.avatar.src;
+            elems.user.avatar.src = user.photo || DEFAULT_PHOTO;
             elems.button.newPost.classList.add('visible');
         } else {
             elems.login.layout.style.display = 'block';
