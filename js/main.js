@@ -186,9 +186,15 @@
             };
             setPosts.allPosts.push(post);
 
-            firebase.database().ref('post').set(this.allPosts);
+            firebase.database().ref('posts').set(this.allPosts);
 
             handler();
+        },
+        getPosts: function(handler) {
+            firebase.database().ref('posts').on('value', snapshot => {
+                this.allPosts = snapshot.val() || [];
+                handler();
+            });
         },
         allPosts: [
             {
@@ -359,7 +365,7 @@
         });
 
         setUsers.initUser(toggleAuth);
-        showAllPosts();
+        setPosts.getPosts(showAllPosts);
     };
 
     function applySelector(obj) {
