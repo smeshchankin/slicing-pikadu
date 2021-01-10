@@ -21,7 +21,8 @@
             password: '.login-password',
             button: {
                 signup: '.login-signup',
-                logout: '.exit-button'
+                logout: '.exit-button',
+                forget: '.login-forget'
             }
         },
         edit: {
@@ -325,7 +326,14 @@
             setUsers.signup(emailElem, passElem, toggleAuth);
             elems.login.form.reset();
         });
-    
+
+        elems.login.button.forget.addEventListener('click', event => {
+            event.preventDefault();
+
+            setUsers.sendForget(elems.login.email.value);
+            elems.login.form.reset();
+        });
+
         elems.login.button.logout.addEventListener('click', event => {
             event.preventDefault();
     
