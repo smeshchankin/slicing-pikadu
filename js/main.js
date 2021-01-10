@@ -162,6 +162,11 @@
                 }
             }
         },
+        sendForget(email) {
+            firebase.auth().sendPasswordResetEmail(email)
+                .then(() => alert('Email was sent'))
+                .catch(err => console.log(err));
+        },
         getUser(email) {
             return data.users.find(u => u.email === email);
         },
