@@ -158,7 +158,7 @@
                     user.updateProfile({ displayName, photoURL })
                         .then(handler);
                 } else {
-                    user.updateProfile({ displayName})
+                    user.updateProfile({ displayName })
                         .then(handler);
                 }
             }
@@ -203,52 +203,7 @@
                 handler();
             });
         },
-        allPosts: [
-            {
-                title: 'Post\'s title',
-                text: [
-                    `Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-                    Qui culpa, asperiores quia voluptatum earum ipsam possimus eius beatae ex
-                    nam cumque est iure, ducimus totam assumenda, a obcaecati consequuntur.
-                    Debitis aliquid maiores tempora, quaerat, quis similique id laboriosam
-                    delectus natus fugiat omnis eaque ab quisquam dignissimos minima beatae
-                    quos esse. Delectus cupiditate quas tempora minima laborum optio explicabo
-                    dolorum eligendi possimus animi minus, totam quod unde numquam veniam in nam
-                    voluptatibus error vel itaque hic?`,
-                    `Accusantium quam quod porro blanditiis quas voluptates non nisi repellendus,
-                    similique dignissimos aperiam tempora praesentium consequatur fugit a veritatis
-                    asperiores id architecto voluptatem doloremque delectus ad. Quos, quo. Tenetur
-                    similique dolores delectus tempora molestiae? Sed aspernatur nisi eligendi
-                    officiis amet laudantium excepturi non possimus illo sapiente, fugit nam
-                    voluptas modi voluptatum magni nobis ratione officia rem facilis animi culpa
-                    minima dignissimos?`,
-                    `Rerum aspernatur reiciendis expedita tempore esse distinctio nulla ratione
-                    at quod deserunt amet sequi architecto hic deleniti vero sed, fuga, non
-                    labore. Non commodi, rerum minus libero eum tempora reprehenderit voluptates,
-                    dolorem id fuga fugiat atque aperiam. Vitae doloribus at dolores eligendi
-                    quasi inventore quidem aut dolorum enim! Facere, aut. Quas, tempora ipsum!
-                    Minus, tempora labore ullam placeat quis consectetur voluptatem laudantium.
-                    Fuga, architecto.`
-                ],
-                tags: ['latest', 'new', 'hot', 'my', 'fortuity'],
-                author: 'thispersondoesnotexist',
-                date: '5 min ago',
-                likes: 26,
-                comments: 157
-            },
-            {
-                title: 'Post #2',
-                text: [
-                    'This is an example of a short text',
-                    'Also we have the second paragrahp'
-                ],
-                tags: ['hot', 'my'],
-                author: 'thispersondoesnotexist',
-                date: '30 min ago',
-                likes: 53,
-                comments: 202
-            }
-        ]
+        allPosts: []
     };
 
     const showAllPosts = () => {
