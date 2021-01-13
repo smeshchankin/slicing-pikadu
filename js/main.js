@@ -1,13 +1,54 @@
 (function() {
-    const firebaseConfig = {
-        apiKey: "AIzaSyDNrUZDJ1Ou73dO2OMOyPvFpjjTtKtg4R4",
-        authDomain: "pika-du.firebaseapp.com",
-        projectId: "pika-du",
-        storageBucket: "pika-du.appspot.com",
-        messagingSenderId: "977058256524",
-        appId: "1:977058256524:web:6a148d0ffb8c12ff964da9"
+    const auth = {
+        _config: {
+            apiKey: "AIzaSyDNrUZDJ1Ou73dO2OMOyPvFpjjTtKtg4R4",
+            authDomain: "pika-du.firebaseapp.com",
+            projectId: "pika-du",
+            storageBucket: "pika-du.appspot.com",
+            messagingSenderId: "977058256524",
+            appId: "1:977058256524:web:6a148d0ffb8c12ff964da9"
+        },
+        init() {
+            firebase.initializeApp(this._config);
+        },
+        login(email, password, errorHandler) {
+            firebase.auth()
+                .signInWithEmailAndPassword(email, password)
+                .catch(err => this._errHandler(err, 'Login', errorHandler));
+        },
+        logout(handler, errorHandler) {
+            firebase.auth()
+                .signOut()
+                .then(handler)
+                .catch(err => this._errHandler(err, 'Logout', errorHandler));
+        },
+        register(email, password, handler, errorHandler) {
+            firebase.auth()
+                .createUserWithEmailAndPassword(email, password)
+                .then(data => handler(data))
+                .catch(err => this._errHandler(err, 'Register', errorHandler));
+        },
+        reset(email, handler, errorHandler) {
+            firebase.auth().sendPasswordResetEmail(email)
+                .then(handler)
+                .catch(err => this._errHandler(err, 'Reset', errorHandler));
+        },
+        getUser() {
+            return firebase.auth().currentUser;
+        },
+        onChange(handler) {
+            firebase.auth().onAuthStateChanged(user => handler(user));
+        },
+        _errHandler(err, type, handler) {
+            const { code, message } = err;
+            if (handler) {
+                handler(code, message);
+            }
+            console.err(type + ' error: code =', code, ', message =', message);
+        }
     };
-    firebase.initializeApp(firebaseConfig);
+
+    auth.init();
 
     const elems = applySelector({
         menu: {
@@ -53,7 +94,7 @@
     const setUsers = {
         user: null,
         initUser(handler) {
-            firebase.auth().onAuthStateChanged(user => {
+            auth.onChange((user) => {
                 this.user = user ? user : null
                 if (handler) {
                     handler();
@@ -66,17 +107,13 @@
                 return;
             }
 
-            firebase.auth()
-                .signInWithEmailAndPassword(email, password)
-                .catch(err => {
-                    const { code, message } = err;
-                    if (code === 'auth/wrong-password') {
-                        alert('Wrong password');
-                    } else if (code === 'auth/user-not-found') {
-                        alert('Wrong login');
-                    }
-                    console.log('Error: code =', code, ', message =', message);
-                });
+            auth.login(email, password, function(code) {
+                if (code === 'auth/wrong-password') {
+                    alert('Wrong password');
+                } else if (code === 'auth/user-not-found') {
+                    alert('Wrong login');
+                }
+            });
 
             const user = this.getUser(email);
             if (user && user.password === password) {
@@ -87,16 +124,12 @@
             }
         },
         logout(handler) {
-            firebase.auth()
-                .signOut()
-                .then(() => {
-                    this.authorizedUser(null);
+            auth.logout(() => {
+                this.authorizedUser(null);
                     handler();
-                })
-                .catch(err => {
-                    const { code, message } = err;
-                    alert('Sign out error: code =', code, ', message =', message);
-                });
+            }, (code, message) => {
+                alert('Sign out error: code =', code, ', message =', message);
+            });
         },
         signup(emailElem, passwordElem, handler) {
             if (!emailElem.reportValidity() || !passwordElem.reportValidity()) {
@@ -107,18 +140,16 @@
                 return;
             }
 
-            firebase.auth()
-                .createUserWithEmailAndPassword(emailElem.value, passwordElem.value)
-                .then(data => this.edit(email.substring(0, email.indexOf('@')), null, handler))
-                .catch(err => {
-                    const { code, message } = err;
+            auth.register(emailElem.value, passwordElem.value,
+                () => this.edit(email.substring(0, email.indexOf('@')), null, handler),
+                (code) => {
                     if (code === 'auth/weak-password') {
                         alert('Weak password');
                     } else if (code === 'auth/email-already-in-use') {
                         alert('User already exists');
                     }
-                    console.log('Error: code =', code, ', message =', message);
-                });
+                }
+            );
 
             if (this.getUser(emailElem.value)) {
                 alert('User with email ' + emailElem.value + ' already exists');
@@ -134,7 +165,7 @@
             }
         },
         edit(displayName, photoURL, handler) {
-            const user = firebase.auth().currentUser;
+            const user = auth.getUser();
 
             if (displayName) {
                 this.user.displayName = displayName;
@@ -151,9 +182,7 @@
             }
         },
         sendForget(email) {
-            firebase.auth().sendPasswordResetEmail(email)
-                .then(() => alert('Email was sent'))
-                .catch(err => console.log(err));
+            auth.reset(email, () => alert('Email was sent'));
         },
         getUser(email) {
             return data.users.find(u => u.email === email);
