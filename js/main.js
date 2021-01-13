@@ -44,20 +44,7 @@
     });
 
     const data = {
-        users: [
-            {
-                id: '01',
-                email: 'john@gmail.com',
-                password: 'whois',
-                displayName: 'John Galt'
-            },
-            {
-                id: '02',
-                email: 'jack@gmail.com',
-                password: '1876-1916',
-                displayName: 'Jack London'
-            }
-        ]
+        users: []
     };
 
     const regExpEmailValidate = /^\w+@\w+\.\w{2,}$/;
