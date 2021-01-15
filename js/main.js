@@ -84,15 +84,12 @@
         }
     });
 
-    const data = {
-        users: []
-    };
-
     const regExpEmailValidate = /^\w+@\w+\.\w{2,}$/;
     const DEFAULT_PHOTO = elems.user.avatar.src;
 
     const setUsers = {
         user: null,
+        users: [],
         initUser(handler) {
             auth.onChange((user) => {
                 this.user = user ? user : null
@@ -159,7 +156,7 @@
                     password: passwordElem.value,
                     displayName: this.extractNameFromEmail(emailElem.value)
                 };
-                data.users.push(user);
+                this.users.push(user);
                 this.authorizedUser(user);
                 handler();
             }
@@ -185,7 +182,7 @@
             auth.reset(email, () => alert('Email was sent'));
         },
         getUser(email) {
-            return data.users.find(u => u.email === email);
+            return this.users.find(u => u.email === email);
         },
         authorizedUser(user) {
             this.user = user;
