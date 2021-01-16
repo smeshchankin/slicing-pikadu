@@ -166,16 +166,14 @@
 
             if (displayName) {
                 this.user.displayName = displayName;
+                const profile = { displayName };
 
                 if (photoURL) {
                     this.user.photo = photoURL;
-
-                    user.updateProfile({ displayName, photoURL })
-                        .then(handler);
-                } else {
-                    user.updateProfile({ displayName })
-                        .then(handler);
+                    profile.photoURL = photoURL;
                 }
+
+                user.updateProfile(profile).then(handler);
             }
         },
         sendForget(email) {
