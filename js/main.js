@@ -204,15 +204,21 @@
             };
             setPosts.allPosts.push(post);
 
-            firebase.database().ref('posts').set(this.allPosts);
+            save(this.allPosts);
 
             handler();
         },
         getPosts: function(handler) {
-            firebase.database().ref('posts').on('value', snapshot => {
-                this.allPosts = snapshot.val() || [];
+            onUpdate((snapshort) => {
+                this.allPosts = snapshot || [];
                 handler();
             });
+        },
+        save(posts) {
+            firebase.database().ref('posts').set(posts);
+        },
+        onUpdate(handler) {
+            firebase.database().ref('posts').on('value', snapshot => handler(snapshot.val()));
         },
         allPosts: []
     };
