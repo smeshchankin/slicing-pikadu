@@ -191,6 +191,7 @@
     };
 
     const setPosts = {
+        _posts: [],
         addPost: function(title, text, tags, handler) {
             const post = {
                 id: `postID${(+new Date()).toString(16)}-${user.uid}`,
@@ -202,17 +203,22 @@
                 likes: 0,
                 comments: 0
             };
-            setPosts.allPosts.push(post);
+            setPosts._posts.push(post);
 
-            save(this.allPosts);
+            save(this._posts);
 
             handler();
         },
         getPosts: function(handler) {
             onUpdate((snapshort) => {
-                this.allPosts = snapshot || [];
+                this._posts = snapshot || [];
                 handler();
             });
+        },
+        showAll: function() {
+            let postsHTML = '';
+            this._posts.forEach(post => postsHTML += this._fillTemplate(post));
+            elems.posts.innerHTML = postsHTML;
         },
         save(posts) {
             firebase.database().ref('posts').set(posts);
@@ -220,14 +226,9 @@
         onUpdate(handler) {
             firebase.database().ref('posts').on('value', snapshot => handler(snapshot.val()));
         },
-        allPosts: []
-    };
-
-    const showAllPosts = () => {
-        let postsHTML = '';
-        setPosts.allPosts.forEach(post => {
+        _fillTemplate: function(post) {
             const { title, text, tags, likes, comments, author, date } = post;
-            postsHTML += `
+            return `
             <section class="post">
                 <div class="post-body">
                     <h2 class="post-title">${title}</h2>
@@ -270,9 +271,7 @@
                 </div>
             </section>
             `;
-        });
-
-        elems.posts.innerHTML = postsHTML;
+        }
     };
 
     const init = () => {
@@ -345,13 +344,13 @@
             }
 
             tags = tags.value.split(',').map(tag => tag.trim());
-            setPosts.addPost(title, text.split('\n'), tags, showAllPosts);
+            setPosts.addPost(title, text.split('\n'), tags, setPosts.showAll);
             hideAddPost();
             this.reset();
         });
 
         setUsers.initUser(toggleAuth);
-        setPosts.getPosts(showAllPosts);
+        setPosts.getPosts(setPosts.showAll);
     };
 
     function applySelector(obj) {
