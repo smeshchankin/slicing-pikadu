@@ -192,7 +192,23 @@
 
     const setPosts = {
         _posts: [],
-        addPost: function(title, text, tags, handler) {
+        validate: function(title, text) {
+            let msg = '';
+            if (title.length <= 5) {
+                msg += 'Too short title\n';
+            }
+            if (text.length <= 5) {
+                msg += 'Too short text\n';
+            }
+
+            if (msg) {
+                alert(msg);
+                return false;
+            }
+
+            return true;
+        },
+        add: function(title, text, tags, handler) {
             const post = {
                 id: `postID${(+new Date()).toString(16)}-${user.uid}`,
                 title,
@@ -209,16 +225,18 @@
 
             handler();
         },
-        getPosts: function(handler) {
+        getAll: function(handler) {
             onUpdate((snapshort) => {
                 this._posts = snapshot || [];
                 handler();
             });
         },
-        showAll: function() {
-            let postsHTML = '';
-            this._posts.forEach(post => postsHTML += this._fillTemplate(post));
-            elems.posts.innerHTML = postsHTML;
+        showAll: function(elem) {
+            return function() {
+                let postsHTML = '';
+                this._posts.forEach(post => postsHTML += this._fillTemplate(post));
+                elem.innerHTML = postsHTML;
+            }
         },
         save(posts) {
             firebase.database().ref('posts').set(posts);
@@ -339,18 +357,18 @@
             title = title.value;
             text = text.value;
 
-            if (!validatePost(title, text)) {
+            if (!setPosts.validate(title, text)) {
                 return;
             }
 
             tags = tags.value.split(',').map(tag => tag.trim());
-            setPosts.addPost(title, text.split('\n'), tags, setPosts.showAll);
+            setPosts.add(title, text.split('\n'), tags, setPosts.showAll(elems.posts));
             hideAddPost();
             this.reset();
         });
 
         setUsers.initUser(toggleAuth);
-        setPosts.getPosts(setPosts.showAll);
+        setPosts.getAll(setPosts.showAll(elems.posts));
     };
 
     function applySelector(obj) {
@@ -389,23 +407,6 @@
     function hideAddPost() {
         elems.button.form.classList.remove('visible');
         elems.posts.classList.add('visible');
-    }
-
-    function validatePost(title, text) {
-        let msg = '';
-        if (title.length <= 5) {
-            msg += 'Too short title\n';
-        }
-        if (text.length <= 5) {
-            msg += 'Too short text\n';
-        }
-
-        if (msg) {
-            alert(msg);
-            return false;
-        }
-
-        return true;
     }
 
     document.addEventListener('DOMContentLoaded', init);
