@@ -190,6 +190,77 @@
         }
     };
 
+    class Post {
+        constructor({ title, text, tags, author }) {
+            this.id = `postID${(+new Date()).toString(16)}`;
+            this.title = title;
+            this.text = text;
+            this.tags = tags;
+            this.author = author;
+            this.date = new Date().toLocaleString();
+            this.likes = 0;
+            this.comments = 0;
+        }
+
+        validate() {
+            this.errors = [];
+            if (this.title.length <= 5) {
+                this.errors.push('Too short title');
+            }
+            if (this.text.length <= 5) {
+                this.errors.push('Too short text');
+            }
+
+            return this.errors.length;
+        }
+
+        render() {
+            return `
+            <section id="post_${this.id}" class="post">
+                <div class="post-body">
+                    <h2 class="post-title">${this.title}</h2>
+                    ${this.text.map(p => `<p class="post-text">${p}</p>`).join('')}
+                    <div class="tags">${this.tags.map(tag => `<a href="#" class="tag">#${tag}</a>`).join('')}
+                </div>
+                <div class="post-footer">
+                    <div class="post-buttons">
+                        <button class="post-button likes">
+                            <svg class="icon icon-likes">
+                                <use xlink:href="img/icons.svg#like"></use>
+                            </svg>
+                            <span class="button-counter">${this.likes}</span>
+                        </button>
+                        <button class="post-button comments">
+                            <svg class="icon icon-comments">
+                                <use xlink:href="img/icons.svg#message"></use>
+                            </svg>
+                            <span class="button-counter">${this.comments}</span>
+                        </button>
+                        <button class="post-button save">
+                            <svg class="icon icon-save">
+                                <use xlink:href="img/icons.svg#save"></use>
+                            </svg>
+                        </button>
+                        <button class="post-button share">
+                            <svg class="icon icon-share">
+                                <use xlink:href="img/icons.svg#share"></use>
+                            </svg>
+                        </button>
+                    </div>
+
+                    <div class="post-author">
+                        <div class="author-about">
+                            <a href="http://thispersondoesnotexist.com" class="author-username">${this.author}</a>
+                            <span class="post-time">${this.date}</span>
+                        </div>
+                        <a href="#" class="author-link"><img src="img/avatar.jpg" alt="avatar" class="author-avatar"></a>
+                    </div>
+                </div>
+            </section>
+            `;
+        }
+    }
+
     const setPosts = {
         _posts: [],
         validate: function(title, text) {
@@ -209,16 +280,7 @@
             return true;
         },
         add: function(title, text, tags, handler) {
-            const post = {
-                id: `postID${(+new Date()).toString(16)}-${user.uid}`,
-                title,
-                text,
-                tags,
-                author: setUsers.user.displayName,
-                date: new Date().toLocaleString(),
-                likes: 0,
-                comments: 0
-            };
+            const post = new Post({ title, text, tags, author: setUsers.user.displayName });
             setPosts._posts.push(post);
 
             save(this._posts);
@@ -234,7 +296,7 @@
         showAll: function(elem) {
             return function() {
                 let postsHTML = '';
-                this._posts.forEach(post => postsHTML += this._fillTemplate(post));
+                this._posts.forEach(post => postsHTML += post.render());
                 elem.innerHTML = postsHTML;
             }
         },
@@ -243,52 +305,6 @@
         },
         onUpdate(handler) {
             firebase.database().ref('posts').on('value', snapshot => handler(snapshot.val()));
-        },
-        _fillTemplate: function(post) {
-            const { title, text, tags, likes, comments, author, date } = post;
-            return `
-            <section class="post">
-                <div class="post-body">
-                    <h2 class="post-title">${title}</h2>
-                    ${text.map(p => `<p class="post-text">${p}</p>`).join('')}
-                    <div class="tags">${tags.map(tag => `<a href="#" class="tag">#${tag}</a>`).join('')}
-                </div>
-                <div class="post-footer">
-                    <div class="post-buttons">
-                        <button class="post-button likes">
-                            <svg class="icon icon-likes">
-                                <use xlink:href="img/icons.svg#like"></use>
-                            </svg>
-                            <span class="button-counter">${likes}</span>
-                        </button>
-                        <button class="post-button comments">
-                            <svg class="icon icon-comments">
-                                <use xlink:href="img/icons.svg#message"></use>
-                            </svg>
-                            <span class="button-counter">${comments}</span>
-                        </button>
-                        <button class="post-button save">
-                            <svg class="icon icon-save">
-                                <use xlink:href="img/icons.svg#save"></use>
-                            </svg>
-                        </button>
-                        <button class="post-button share">
-                            <svg class="icon icon-share">
-                                <use xlink:href="img/icons.svg#share"></use>
-                            </svg>
-                        </button>
-                    </div>
-
-                    <div class="post-author">
-                        <div class="author-about">
-                            <a href="http://thispersondoesnotexist.com" class="author-username">${author}</a>
-                            <span class="post-time">${date}</span>
-                        </div>
-                        <a href="#" class="author-link"><img src="img/avatar.jpg" alt="avatar" class="author-avatar"></a>
-                    </div>
-                </div>
-            </section>
-            `;
         }
     };
 
