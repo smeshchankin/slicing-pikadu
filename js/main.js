@@ -191,7 +191,7 @@
     };
 
     class Post {
-        constructor({ title, text, tags, author }) {
+        constructor({ title, text, tags, author } = {}) {
             this.id = `postID${(+new Date()).toString(16)}`;
             this.title = title;
             this.text = text;
@@ -279,12 +279,9 @@
 
             return true;
         },
-        add: function(title, text, tags, handler) {
-            const post = new Post({ title, text, tags, author: setUsers.user.displayName });
+        add: function(post, handler) {
             setPosts._posts.push(post);
-
             save(this._posts);
-
             handler();
         },
         getAll: function(handler) {
@@ -371,16 +368,17 @@
 
             let { title, text, tags } = this.elements;
             title = title.value;
-            text = text.value;
-
-            if (!setPosts.validate(title, text)) {
-                return;
-            }
-
+            text = text.value.split('\n');
             tags = tags.value.split(',').map(tag => tag.trim());
-            setPosts.add(title, text.split('\n'), tags, setPosts.showAll(elems.posts));
-            hideAddPost();
-            this.reset();
+
+            const post = new Post({ title, text, tags, author: setUsers.user.displayName });
+            if (post.validate()) {
+                setPosts.add(post, setPosts.showAll(elems.posts));
+                hideAddPost();
+                this.reset();
+            } else {
+                alert(post.errors.join('\n'));
+            }
         });
 
         setUsers.initUser(toggleAuth);
