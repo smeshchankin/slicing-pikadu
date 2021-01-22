@@ -192,7 +192,7 @@
 
     class Post {
         constructor({ title, text, tags, author } = {}) {
-            this.id = `postID${(+new Date()).toString(16)}`;
+            this.id = this._generateID();
             this.title = title;
             this.text = text;
             this.tags = tags;
@@ -200,6 +200,10 @@
             this.date = new Date().toLocaleString();
             this.likes = 0;
             this.comments = 0;
+        }
+
+        _generateID() {
+            return `postID${(+new Date()).toString(16)}`;
         }
 
         validate() {
