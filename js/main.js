@@ -84,7 +84,6 @@
         }
     });
 
-    const regExpEmailValidate = /^\w+@\w+\.\w{2,}$/;
     const DEFAULT_PHOTO = elems.user.avatar.src;
 
     const setUsers = {
@@ -99,7 +98,7 @@
             });
         },
         login(email, password, handler) {
-            if (!regExpEmailValidate.test(email)) {
+            if (!this._validEmail(email)) {
                 alert('Invalid email');
                 return;
             }
@@ -132,7 +131,7 @@
             if (!emailElem.reportValidity() || !passwordElem.reportValidity()) {
                 return;
             }
-            if (!regExpEmailValidate.test(emailElem.value)) {
+            if (!this._validEmail(emailElem.value)) {
                 alert('Invalid email');
                 return;
             }
@@ -187,6 +186,10 @@
         },
         extractNameFromEmail(email) {
             return email && email.split('@')[0];
+        },
+        _validEmail(email) {
+            const regExpEmailValidate = /^\w+@\w+\.\w{2,}$/;
+            return regExpEmailValidate.test(email);
         }
     };
 
