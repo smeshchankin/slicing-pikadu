@@ -268,68 +268,61 @@
         }
     }
 
-    const setPosts = {
-        _posts: [],
-        validate: function(title, text) {
-            let msg = '';
-            if (title.length <= 5) {
-                msg += 'Too short title\n';
-            }
-            if (text.length <= 5) {
-                msg += 'Too short text\n';
-            }
+    class Posts {
+        constructor() {
+            this._posts = [];
+        }
 
-            if (msg) {
-                alert(msg);
-                return false;
-            }
-
-            return true;
-        },
-        add: function(post, handler) {
-            setPosts._posts.push(post);
+        add(post, handler) {
+            this._posts.push(post);
             save(this._posts);
             handler();
-        },
-        getAll: function(handler) {
-            onUpdate((snapshort) => {
+        }
+
+        getAll(handler) {
+            onUpdate((snapshot) => {
                 this._posts = snapshot || [];
                 handler();
             });
-        },
-        showAll: function(elem) {
+        }
+
+        showAll(elem) {
             return function() {
                 let postsHTML = '';
                 this._posts.forEach(post => postsHTML += post.render());
                 elem.innerHTML = postsHTML;
             }
-        },
+        }
+
         save(posts) {
             firebase.database().ref('posts').set(posts);
-        },
+        }
+
         onUpdate(handler) {
             firebase.database().ref('posts').on('value', snapshot => handler(snapshot.val()));
         }
-    };
+    }
 
     const init = () => {
+        const posts = new Posts();
+
         elems.menu.button.addEventListener('click', function(event) {
             event.preventDefault();
             elems.menu.layout.classList.toggle('visible');
         });
-    
+
         elems.login.form.addEventListener('submit', event => {
             event.preventDefault();
-    
+
             const email = elems.login.email.value;
             const pass = elems.login.password.value;
             setUsers.login(email, pass, toggleAuth);
             elems.login.form.reset();
         });
-    
+
         elems.login.button.signup.addEventListener('click', event => {
             event.preventDefault();
-    
+
             const emailElem = elems.login.email;
             const passElem = elems.login.password;
             setUsers.signup(emailElem, passElem, toggleAuth);
@@ -345,20 +338,20 @@
 
         elems.login.button.logout.addEventListener('click', event => {
             event.preventDefault();
-    
+
             setUsers.logout(toggleAuth);
         });
-    
+
         elems.edit.button.addEventListener('click', event => {
             event.preventDefault();
             elems.edit.layout.classList.toggle('visible');
             elems.edit.username.value = setUsers.user.displayName;
             elems.edit.photo.value = setUsers.user.photo || '';
         });
-    
+
         elems.edit.layout.addEventListener('submit', event => {
             event.preventDefault();
-    
+
             const user = elems.edit.username.value;
             const photo = elems.edit.photo.value;
             setUsers.edit(user, photo, toggleAuth);
@@ -380,7 +373,7 @@
 
             const post = new Post({ title, text, tags, author: setUsers.user.displayName });
             if (post.validate()) {
-                setPosts.add(post, setPosts.showAll(elems.posts));
+                posts.add(post, posts.showAll(elems.posts));
                 hideAddPost();
                 this.reset();
             } else {
@@ -389,7 +382,7 @@
         });
 
         setUsers.initUser(toggleAuth);
-        setPosts.getAll(setPosts.showAll(elems.posts));
+        posts.getAll(posts.showAll(elems.posts));
     };
 
     function applySelector(obj) {
