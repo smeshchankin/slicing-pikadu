@@ -269,7 +269,8 @@
     }
 
     class Posts {
-        constructor() {
+        constructor(db) {
+            this._db = db;
             this._posts = [];
         }
 
@@ -295,16 +296,16 @@
         }
 
         save(posts) {
-            firebase.database().ref('posts').set(posts);
+            db().set(posts);
         }
 
         onUpdate(handler) {
-            firebase.database().ref('posts').on('value', snapshot => handler(snapshot.val()));
+            db().on('value', snapshot => handler(snapshot.val()));
         }
     }
 
     const init = () => {
-        const posts = new Posts();
+        const posts = new Posts(() => firebase.database().ref('posts'));
 
         elems.menu.button.addEventListener('click', function(event) {
             event.preventDefault();
