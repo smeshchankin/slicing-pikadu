@@ -1,5 +1,5 @@
 # Pikadu
-[Open GtHub Pages](http://smeshchankin.github.io/slicing-pikadu)
+[Open GitHub Pages](http://smeshchankin.github.io/slicing-pikadu)
 
 Pikadu posts feed
 
